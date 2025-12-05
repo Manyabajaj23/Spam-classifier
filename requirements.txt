@@ -1,5 +1,4 @@
 Flask
 nltk
-pickle
 scikit-learn
 Flask-Cors
