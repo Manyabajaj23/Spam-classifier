@@ -1,6 +1,0 @@
-Flask
-nltk
-string
-pickle
-scikit-learn
-Flask-Cors
