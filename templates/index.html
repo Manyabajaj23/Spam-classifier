@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+        integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Spam Classifier</title>
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #444;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .navbar {
+            background-color: #1e3a5f;
+            padding: 10px 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #1e3a5f);
+            color: #fff;
+            text-align: center;
+            height: 30%;
+            display: flex;
+           
+            justify-content: center;
+            padding: 20px;
+            justify-content: center;
+            align-items: center;
+
+        }
+        .mobile{
+            display: none;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+
+        .header a{
+            width:200px;
+        }
+        .header .btn-secondary {
+            background-color: #f5a623;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .header .btn-secondary:hover {
+            background-color: #ffc97e;
+            color: #1e3a5f;
+        }
+
+        .form-section {
+            height: 40%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+           
+        }
+
+        .form-container {
+            background-color: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: auto;
+        }
+
+        .form-container h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .form-container textarea {
+            width: 100%;
+            border-radius: 10px;
+            padding: 10px;
+            resize: none;
+        }
+
+        .form-container button {
+            background: linear-gradient(135deg, #4a90e2, #1e3a5f);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 30px;
+            transition: all 0.3s ease-in-out;
+            margin-top: 10px;
+        }
+
+        .form-container button:hover {
+            background: linear-gradient(135deg, #1e3a5f, #4a90e2);
+            transform: scale(1.05);
+        }
+
+        .image-container {
+            width: 25%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+
+        .features {
+            height: 27%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #1e3a5f;
+            color: #fff;
+            padding: 10px 20px;
+        }
+
+        .features div {
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            border-radius: 10px;
+            padding: 30px 10px;
+            background: linear-gradient(135deg, #4a90e2, #1e3a5f);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            
+        }
+
+        .features i {
+            font-size: 4rem;
+            margin-bottom: 5px;
+        }
+
+        .features h3 {
+            font-size: 1.2rem;
+        }
+
+        .result-section {
+            background-color: #eaf4e0;
+            border: 2px solid #4a90e2;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            text-align: center;
+            width:30%;
+        }
+        
+        .result-section h3 {
+            font-size: 1.8rem;
+            color: #1e3a5f;
+            margin-bottom: 10px;
+        }
+        
+        .result-section p {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #e74c3c; /* Red for spam */
+        }
+        
+        .result-section p.not-spam {
+            color: #27ae60; /* Green for not spam */
+        }
+        footer{
+            text-align: center;
+        }
+        
+        @media (max-width: 768px) {
+            body{
+                height:150vh;
+                overflow:scroll;
+            }
+            .header{
+               height:30%;
+            }
+            .form-section {
+                flex-direction: column;
+                height: 50%;
+            }
+
+            .form-container {
+                width: 90%;
+            }
+
+            .image-container {
+                margin-top: 20px;
+                width: 90%;
+            }
+
+            .features {
+                flex-direction: row;
+                height: 10%;
+            }
+
+        .features i {
+            font-size: 2rem;
+            margin-bottom: 5px;
+        }
+
+            .result-section {
+                width: 100%;
+            }
+            .features {
+                height: 18%;
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                background-color: #1e3a5f;
+                color: #fff;
+                
+            }
+            .mobile{
+                display: block;
+            }
+            .displaynone,.pc{
+                display: none;
+            }
+            .features div {
+                width: 30%;
+               height: 50%;
+                text-align: center;
+                
+                
+                border-radius: 10px;
+                
+                background: linear-gradient(135deg, #4a90e2, #1e3a5f);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+                
+            }
+    
+        }
+    </style>
+</head>
+
+<body>
+    <section class="header">
+        <div class="text-content">
+            <h1>Protecting Your Emails</h1>
+            <p>Utilizing Advanced Machine Learning Algorithms</p>
+            <a href="https://www.kaggle.com/datasets/uciml/sms-spam-collection-dataset" class="btn btn-secondary">Learn
+                More</a>
+        </div>
+        <div class="image-container">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSiFRlMMf-4pRQmMlMxIfQ00iqbD03by5j2ng&s" alt="Spam Image">
+        </div>
+    </section>
+    <section class="form-section">
+        {% if result is defined %}
+        <div class="result-section mobile">
+            <h3>Prediction Result</h3>
+            <p class="{{ 'not-spam' if result == 0 else '' }}">
+                {{ 'Not Spam' if result == 0 else 'Spam' }}
+            </p>
+        </div>
+    {% endif %}
+        <div class="form-container">
+            <h2>Let's Predict</h2>
+            <form method="POST" action="/predict">
+                <div class="mb-3">
+                    <textarea name="message" id="message" rows="5" placeholder="Type your message here" required></textarea>
+                </div>
+                <button type="submit" name="action" value="predict">Predict</button>
+            </form>
+        
+        </div>
+        {% if result is defined %}
+        <div class="result-section pc">
+            <h3>Prediction Result</h3>
+            <p class="{{ 'not-spam' if result == 0 else '' }}">
+                {{ 'Not Spam' if result == 0 else 'Spam' }}
+            </p>
+        </div>
+    {% endif %}
+    
+    </section>
+    <br>
+    <br>
+    <br>
+    <section class="features">
+        <div>
+            <i class="fa-solid fa-shield"></i>
+            <h3>Security</h3>
+            <p class="displaynone">State-of-the-art security to keep your data safe and secure.</p>
+        </div>
+        <div>
+            <i class="fa-solid fa-globe"></i>
+            <h3>Global Reach</h3>
+            <p class="displaynone">Accessible worldwide to serve users everywhere.</p>
+        </div>
+        <div>
+            <i class="fa-solid fa-lock"></i>
+            <h3>Privacy</h3>
+            <p class="displaynone">Protecting your data with robust privacy measures.</p>
+        </div>
+        
+        
+        
+    </section>
+    <!-- <footer class="footer">
+        <p>&copy; 2024 Abhinaya. All Rights Reserved.</p>
+    </footer> -->
+
+</body>
+
+</html>
